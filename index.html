@@ -46,7 +46,6 @@ header h1{
 }
 @media(max-width:1100px){ .reactor-grid{ grid-template-columns:1fr; } }
 
-/* ── CARD ── */
 .card{
   background:var(--panel);
   border:1px solid var(--border);
@@ -56,27 +55,15 @@ header h1{
   flex-direction:column;
   gap:14px;
 }
-.reactor-header{
-  display:flex; align-items:center; justify-content:space-between;
-}
-.reactor-title{
-  font-family:'Orbitron',sans-serif;
-  font-size:1rem; color:var(--cyan);
-}
-.status-badge{
-  font-size:0.75rem; padding:3px 12px;
-  border-radius:20px; font-weight:bold;
-}
+.reactor-header{ display:flex; align-items:center; justify-content:space-between; }
+.reactor-title{ font-family:'Orbitron',sans-serif; font-size:1rem; color:var(--cyan); }
+.status-badge{ font-size:0.75rem; padding:3px 12px; border-radius:20px; font-weight:bold; }
 .badge-online { background:#0a2a0a; color:var(--green); border:1px solid var(--green); }
-.badge-offline{ background:#2a0a0a; color:var(--red);   border:1px solid var(--red);   }
+.badge-offline{ background:#2a0a0a; color:var(--red);   border:1px solid var(--red); }
 
-/* ── MOTORS ROW ── */
-.motors-row{
-  display:grid; grid-template-columns:1fr 1fr; gap:12px;
-}
+.motors-row{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
 @media(max-width:600px){ .motors-row{ grid-template-columns:1fr; } }
 
-/* ── MOTOR BLOCK ── */
 .motor-block{
   background:var(--panel2);
   border-radius:10px; padding:12px;
@@ -105,12 +92,10 @@ header h1{
 }
 .settings-btn:hover{ opacity:1; }
 
-/* ── GAUGE ── */
 .gauge-wrap{ display:flex; flex-direction:column; align-items:center; }
 .gauge-wrap canvas{ display:block; }
 .gauge-sub{ font-size:0.6rem; color:var(--dim); text-align:center; margin-top:1px; }
 
-/* ── RUNTIME DISPLAY ── */
 .runtime-display{
   display:flex; align-items:center; justify-content:center; gap:6px;
   background:#08101f; border-radius:6px; padding:5px 8px;
@@ -120,7 +105,6 @@ header h1{
 .runtime-label{ color:var(--dim); font-size:0.6rem; }
 .runtime-value{ font-family:'Orbitron'; font-size:0.88rem; color:var(--yellow); }
 
-/* ── CONDITION PILL ── */
 .condition-pill{
   text-align:center; padding:4px 8px;
   border-radius:20px; font-size:0.68rem;
@@ -135,25 +119,17 @@ header h1{
   50%    { box-shadow:0 0 14px rgba(255,23,68,0.9); }
 }
 
-/* ── MINI METRICS ── */
 .mini-metrics{ display:grid; grid-template-columns:1fr 1fr; gap:5px; }
-.mini-metric{
-  background:#08101f; border-radius:6px;
-  padding:6px 4px; text-align:center;
-}
+.mini-metric{ background:#08101f; border-radius:6px; padding:6px 4px; text-align:center; }
 .mini-metric-title{ color:var(--dim); font-size:0.58rem; margin-bottom:2px; }
 .mini-metric-value{ font-size:0.82rem; font-family:'Orbitron'; }
 .val-temp  { color:var(--green); }
 .val-energy{ color:var(--purple); }
 
-/* ── LOGS ── */
 .reactor-logs{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
 @media(max-width:600px){ .reactor-logs{ grid-template-columns:1fr; } }
 
-.log-panel{
-  background:var(--panel2); border:1px solid var(--border);
-  border-radius:8px; overflow:hidden;
-}
+.log-panel{ background:var(--panel2); border:1px solid var(--border); border-radius:8px; overflow:hidden; }
 .log-panel-header{
   padding:6px 10px; font-size:0.68rem; font-weight:bold;
   display:flex; align-items:center; justify-content:space-between;
@@ -165,7 +141,7 @@ header h1{
 .lc-alarm{ background:var(--red);   color:#fff; }
 .lc-run  { background:var(--green); color:#000; }
 
-.log-table-wrap{ max-height:130px; overflow-y:auto; }
+.log-table-wrap{ max-height:160px; overflow-y:auto; }
 .log-table-wrap::-webkit-scrollbar{ width:3px; }
 .log-table-wrap::-webkit-scrollbar-thumb{ background:var(--border); }
 
@@ -178,10 +154,31 @@ th{
 td{ padding:3px 5px; border-bottom:1px solid #0d1a30; }
 tr:last-child td{ border-bottom:none; }
 .row-alarm td{ color:#ff6b6b; }
+.row-alarm.acked td{ color:#6a3a3a; }
 .row-run   td{ color:#69ff47; }
 .no-data{ color:var(--dim); text-align:center; padding:10px; font-size:0.66rem; }
 
-/* ── CSV ── */
+/* ACK button */
+.ack-btn{
+  background:#2a0a0a;
+  border:1px solid var(--red);
+  color:var(--red);
+  border-radius:4px;
+  padding:2px 6px;
+  font-size:0.58rem;
+  cursor:pointer;
+  font-family:'Share Tech Mono',monospace;
+  transition:all 0.2s;
+  white-space:nowrap;
+}
+.ack-btn:hover{ background:var(--red); color:#fff; }
+.ack-btn.acked{
+  background:#1a3a1a;
+  border-color:var(--green);
+  color:var(--green);
+  cursor:default;
+}
+
 .csv-section{ display:flex; flex-direction:column; gap:5px; }
 .csv-label{ font-size:0.63rem; color:var(--dim); text-transform:uppercase; letter-spacing:1px; }
 .csv-row{ display:flex; gap:6px; flex-wrap:wrap; }
@@ -200,7 +197,7 @@ tr:last-child td{ border-bottom:none; }
 .btn-full-p { background:var(--purple); color:#fff; }
 .btn-full-y { background:var(--yellow); color:#000; }
 
-/* ── SETTINGS MODAL ── */
+/* SETTINGS MODAL */
 .modal-overlay{
   display:none; position:fixed; inset:0;
   background:rgba(0,0,0,0.78); z-index:1000;
@@ -255,9 +252,7 @@ tr:last-child td{ border-bottom:none; }
 
 <div class="reactor-grid">
 
-<!-- ══════════════════════════════════════════════════════
-     REACTOR 1
-══════════════════════════════════════════════════════ -->
+<!-- ══════════ REACTOR 1 ══════════ -->
 <div class="card">
   <div class="reactor-header">
     <div class="reactor-title">⚛ REACTOR 1</div>
@@ -266,8 +261,7 @@ tr:last-child td{ border-bottom:none; }
   <div class="motors-row">
     <div class="motor-block state-idle" id="block_R1_M1">
       <div class="motor-block-title title-idle" id="title_R1_M1">
-        M1 · BACKUP PUMP
-        <button class="settings-btn" onclick="openSettings('R1','M1')">⚙️</button>
+        M1 · BACKUP PUMP <button class="settings-btn" onclick="openSettings('R1','M1')">⚙️</button>
       </div>
       <div class="gauge-wrap">
         <canvas id="gauge_R1_M1" width="150" height="95"></canvas>
@@ -292,8 +286,7 @@ tr:last-child td{ border-bottom:none; }
     </div>
     <div class="motor-block state-idle" id="block_R1_M2">
       <div class="motor-block-title title-idle" id="title_R1_M2">
-        M2 · BOOSTER 2
-        <button class="settings-btn" onclick="openSettings('R1','M2')">⚙️</button>
+        M2 · BOOSTER 2 <button class="settings-btn" onclick="openSettings('R1','M2')">⚙️</button>
       </div>
       <div class="gauge-wrap">
         <canvas id="gauge_R1_M2" width="150" height="95"></canvas>
@@ -321,8 +314,8 @@ tr:last-child td{ border-bottom:none; }
     <div class="log-panel">
       <div class="log-panel-header lh-alarm">🚨 ALARM LOG <span class="log-count lc-alarm" id="R1_alarm_count">0</span></div>
       <div class="log-table-wrap"><table>
-        <thead><tr><th>Date</th><th>Time</th><th>Motor</th><th>Amps</th><th>Cond.</th></tr></thead>
-        <tbody id="R1_alarm_log"><tr><td colspan="5" class="no-data">No alarms</td></tr></tbody>
+        <thead><tr><th>Date</th><th>Time</th><th>Motor</th><th>Amps</th><th>Cond.</th><th>ACK</th></tr></thead>
+        <tbody id="R1_alarm_log"><tr><td colspan="6" class="no-data">No alarms</td></tr></tbody>
       </table></div>
     </div>
     <div class="log-panel">
@@ -343,9 +336,7 @@ tr:last-child td{ border-bottom:none; }
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════
-     REACTOR 2
-══════════════════════════════════════════════════════ -->
+<!-- ══════════ REACTOR 2 ══════════ -->
 <div class="card">
   <div class="reactor-header">
     <div class="reactor-title">⚛ REACTOR 2</div>
@@ -354,8 +345,7 @@ tr:last-child td{ border-bottom:none; }
   <div class="motors-row">
     <div class="motor-block state-idle" id="block_R2_M1">
       <div class="motor-block-title title-idle" id="title_R2_M1">
-        M1 · BACKUP PUMP
-        <button class="settings-btn" onclick="openSettings('R2','M1')">⚙️</button>
+        M1 · BACKUP PUMP <button class="settings-btn" onclick="openSettings('R2','M1')">⚙️</button>
       </div>
       <div class="gauge-wrap">
         <canvas id="gauge_R2_M1" width="150" height="95"></canvas>
@@ -380,8 +370,7 @@ tr:last-child td{ border-bottom:none; }
     </div>
     <div class="motor-block state-idle" id="block_R2_M2">
       <div class="motor-block-title title-idle" id="title_R2_M2">
-        M2 · BOOSTER 2
-        <button class="settings-btn" onclick="openSettings('R2','M2')">⚙️</button>
+        M2 · BOOSTER 2 <button class="settings-btn" onclick="openSettings('R2','M2')">⚙️</button>
       </div>
       <div class="gauge-wrap">
         <canvas id="gauge_R2_M2" width="150" height="95"></canvas>
@@ -409,8 +398,8 @@ tr:last-child td{ border-bottom:none; }
     <div class="log-panel">
       <div class="log-panel-header lh-alarm">🚨 ALARM LOG <span class="log-count lc-alarm" id="R2_alarm_count">0</span></div>
       <div class="log-table-wrap"><table>
-        <thead><tr><th>Date</th><th>Time</th><th>Motor</th><th>Amps</th><th>Cond.</th></tr></thead>
-        <tbody id="R2_alarm_log"><tr><td colspan="5" class="no-data">No alarms</td></tr></tbody>
+        <thead><tr><th>Date</th><th>Time</th><th>Motor</th><th>Amps</th><th>Cond.</th><th>ACK</th></tr></thead>
+        <tbody id="R2_alarm_log"><tr><td colspan="6" class="no-data">No alarms</td></tr></tbody>
       </table></div>
     </div>
     <div class="log-panel">
@@ -431,9 +420,7 @@ tr:last-child td{ border-bottom:none; }
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════
-     REACTOR 3
-══════════════════════════════════════════════════════ -->
+<!-- ══════════ REACTOR 3 ══════════ -->
 <div class="card">
   <div class="reactor-header">
     <div class="reactor-title">⚛ REACTOR 3</div>
@@ -442,8 +429,7 @@ tr:last-child td{ border-bottom:none; }
   <div class="motors-row">
     <div class="motor-block state-idle" id="block_R3_M1">
       <div class="motor-block-title title-idle" id="title_R3_M1">
-        M1 · BACKUP PUMP
-        <button class="settings-btn" onclick="openSettings('R3','M1')">⚙️</button>
+        M1 · BACKUP PUMP <button class="settings-btn" onclick="openSettings('R3','M1')">⚙️</button>
       </div>
       <div class="gauge-wrap">
         <canvas id="gauge_R3_M1" width="150" height="95"></canvas>
@@ -468,8 +454,7 @@ tr:last-child td{ border-bottom:none; }
     </div>
     <div class="motor-block state-idle" id="block_R3_M2">
       <div class="motor-block-title title-idle" id="title_R3_M2">
-        M2 · BOOSTER 2
-        <button class="settings-btn" onclick="openSettings('R3','M2')">⚙️</button>
+        M2 · BOOSTER 2 <button class="settings-btn" onclick="openSettings('R3','M2')">⚙️</button>
       </div>
       <div class="gauge-wrap">
         <canvas id="gauge_R3_M2" width="150" height="95"></canvas>
@@ -497,8 +482,8 @@ tr:last-child td{ border-bottom:none; }
     <div class="log-panel">
       <div class="log-panel-header lh-alarm">🚨 ALARM LOG <span class="log-count lc-alarm" id="R3_alarm_count">0</span></div>
       <div class="log-table-wrap"><table>
-        <thead><tr><th>Date</th><th>Time</th><th>Motor</th><th>Amps</th><th>Cond.</th></tr></thead>
-        <tbody id="R3_alarm_log"><tr><td colspan="5" class="no-data">No alarms</td></tr></tbody>
+        <thead><tr><th>Date</th><th>Time</th><th>Motor</th><th>Amps</th><th>Cond.</th><th>ACK</th></tr></thead>
+        <tbody id="R3_alarm_log"><tr><td colspan="6" class="no-data">No alarms</td></tr></tbody>
       </table></div>
     </div>
     <div class="log-panel">
@@ -519,9 +504,7 @@ tr:last-child td{ border-bottom:none; }
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════
-     REACTOR 4
-══════════════════════════════════════════════════════ -->
+<!-- ══════════ REACTOR 4 ══════════ -->
 <div class="card">
   <div class="reactor-header">
     <div class="reactor-title">⚛ REACTOR 4</div>
@@ -530,8 +513,7 @@ tr:last-child td{ border-bottom:none; }
   <div class="motors-row">
     <div class="motor-block state-idle" id="block_R4_M1">
       <div class="motor-block-title title-idle" id="title_R4_M1">
-        M1 · BACKUP PUMP
-        <button class="settings-btn" onclick="openSettings('R4','M1')">⚙️</button>
+        M1 · BACKUP PUMP <button class="settings-btn" onclick="openSettings('R4','M1')">⚙️</button>
       </div>
       <div class="gauge-wrap">
         <canvas id="gauge_R4_M1" width="150" height="95"></canvas>
@@ -556,8 +538,7 @@ tr:last-child td{ border-bottom:none; }
     </div>
     <div class="motor-block state-idle" id="block_R4_M2">
       <div class="motor-block-title title-idle" id="title_R4_M2">
-        M2 · BOOSTER 2
-        <button class="settings-btn" onclick="openSettings('R4','M2')">⚙️</button>
+        M2 · BOOSTER 2 <button class="settings-btn" onclick="openSettings('R4','M2')">⚙️</button>
       </div>
       <div class="gauge-wrap">
         <canvas id="gauge_R4_M2" width="150" height="95"></canvas>
@@ -585,8 +566,8 @@ tr:last-child td{ border-bottom:none; }
     <div class="log-panel">
       <div class="log-panel-header lh-alarm">🚨 ALARM LOG <span class="log-count lc-alarm" id="R4_alarm_count">0</span></div>
       <div class="log-table-wrap"><table>
-        <thead><tr><th>Date</th><th>Time</th><th>Motor</th><th>Amps</th><th>Cond.</th></tr></thead>
-        <tbody id="R4_alarm_log"><tr><td colspan="5" class="no-data">No alarms</td></tr></tbody>
+        <thead><tr><th>Date</th><th>Time</th><th>Motor</th><th>Amps</th><th>Cond.</th><th>ACK</th></tr></thead>
+        <tbody id="R4_alarm_log"><tr><td colspan="6" class="no-data">No alarms</td></tr></tbody>
       </table></div>
     </div>
     <div class="log-panel">
@@ -607,8 +588,7 @@ tr:last-child td{ border-bottom:none; }
   </div>
 </div>
 
-</div><!-- end reactor-grid -->
-</div><!-- end wrapper -->
+</div></div>
 
 <!-- SETTINGS MODAL -->
 <div class="modal-overlay" id="settings_modal">
@@ -642,7 +622,7 @@ tr:last-child td{ border-bottom:none; }
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+import { getDatabase, ref, onValue, set, get } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
 /* ═══════════════════════════════════════════
    FIREBASE CONFIGS
@@ -686,132 +666,157 @@ const CONFIGS = {
   }
 };
 
-/* ── Init all 4 Firebase apps ── */
 const DBS = {};
 ['R1','R2','R3','R4'].forEach(R=>{
-  const app = initializeApp(CONFIGS[R], R);
-  DBS[R] = getDatabase(app);
+  DBS[R] = getDatabase(initializeApp(CONFIGS[R], R));
 });
 
 /* ═══════════════════════════════════════════
-   CONSTANTS & SETTINGS
+   CONSTANTS
 ═══════════════════════════════════════════ */
-const OFFLINE_MS  = 60000;
-const MAX_LOG     = 200;
-const DEFAULT_CFG = { voltage:400, pf:0.85, threshold:10, gaugeMax:20 };
-
-function loadCfg(R,M){
-  try{
-    const s=JSON.parse(localStorage.getItem(`cfg_${R}_${M}`));
-    if(s&&s.voltage) return s;
-  }catch(e){}
-  return {...DEFAULT_CFG};
-}
-function saveCfg(R,M,s){ localStorage.setItem(`cfg_${R}_${M}`,JSON.stringify(s)); }
+const OFFLINE_MS   = 60000;
+const MAX_ALARM    = 200;
+const MAX_RUN      = 20;       // ← Run log capped at 20 newest entries
+const DEFAULT_CFG  = { voltage:400, pf:0.85, threshold:10, gaugeMax:20 };
+const REACTORS     = ['R1','R2','R3','R4'];
 
 /* ═══════════════════════════════════════════
-   DAILY PERSISTENCE
+   SETTINGS — stored in Firebase per reactor
+   Path: dashboard_cfg/{R}/{M}
 ═══════════════════════════════════════════ */
-function todayKey(){ return new Date().toLocaleDateString('en-CA'); }
-
-function loadDaily(R,M){
-  try{
-    const obj=JSON.parse(localStorage.getItem(`daily_${R}_${M}`));
-    if(obj&&obj.date===todayKey()) return {runSec:obj.runSec||0, kwh:obj.kwh||0};
-  }catch(e){}
-  return {runSec:0, kwh:0};
+function loadCfg(R, M){
+  // Fallback default; real value loaded async from Firebase
+  return { ...DEFAULT_CFG };
 }
-function saveDaily(R,M,runSec,kwh){
-  localStorage.setItem(`daily_${R}_${M}`,JSON.stringify({date:todayKey(),runSec,kwh}));
+function saveCfgToFirebase(R, M, cfg){
+  set(ref(DBS[R], `dashboard_cfg/${M}`), cfg).catch(()=>{});
+}
+function loadCfgFromFirebase(R, M){
+  return get(ref(DBS[R], `dashboard_cfg/${M}`))
+    .then(snap => {
+      const v = snap.val();
+      if(v && v.voltage) return v;
+      return { ...DEFAULT_CFG };
+    })
+    .catch(() => ({ ...DEFAULT_CFG }));
 }
 
 /* ═══════════════════════════════════════════
-   STATE — built for all 4 reactors
+   STATE
 ═══════════════════════════════════════════ */
-function makeMot(R,M,label){
-  const daily=loadDaily(R,M);
+function makeMot(label){
   return {
     label, amps:0, condition:'idle', lastTs:null,
-    cfg:loadCfg(R,M),
-    runSec:daily.runSec, dailyKwh:daily.kwh,
-    inAlarm:false, lastAlarmMinute:-1
+    cfg: { ...DEFAULT_CFG },
+    runSec:0, dailyKwh:0,
+    inAlarm:false, lastAlarmMinute:-1,
+    // Throttle Firebase daily writes — write at most every 10s
+    _lastSaveTs: 0
   };
 }
 
-const REACTORS = ['R1','R2','R3','R4'];
 const state = {};
 REACTORS.forEach(R=>{
   state[R]={
-    online:false, hb:0, alarmLog:[], runLog:[], history:[],
+    online:false, hb:0,
+    alarmLog:[], runLog:[], history:[],
     motors:{
-      M1:makeMot(R,'M1','M1-BackupPump'),
-      M2:makeMot(R,'M2','M2-Booster2')
+      M1: makeMot('M1-BackupPump'),
+      M2: makeMot('M2-Booster2')
     }
   };
 });
 
 /* ═══════════════════════════════════════════
+   ASYNC INIT — load cfg + daily from Firebase
+═══════════════════════════════════════════ */
+async function initMotor(R, M){
+  const mot = state[R].motors[M];
+  // Load settings
+  mot.cfg = await loadCfgFromFirebase(R, M);
+  
+  mot.runSec   = 0;
+  mot.dailyKwh = 0;
+  
+  // Refresh display
+  el(`${R}_${M}_runtime`).textContent = fmtRuntime(Math.floor(mot.runSec));
+  el(`${R}_${M}_energy`).textContent  = fmtKwh(mot.dailyKwh);
+  el(`gsub_${R}_${M}`).textContent    = `MAX ${mot.cfg.gaugeMax}A · THR ${mot.cfg.threshold}A`;
+  drawGauge(`gauge_${R}_${M}`, 0, 'idle', mot.cfg);
+}
+
+// Init all motors in parallel
+Promise.all(
+  REACTORS.flatMap(R => ['M1','M2'].map(M => initMotor(R, M)))
+).then(() => {
+  // Attach Firebase listeners only after cfg is loaded
+  REACTORS.forEach(R => attachListeners(R));
+});
+
+/* ═══════════════════════════════════════════
    MIDNIGHT RESET
 ═══════════════════════════════════════════ */
-let _lastDate=todayKey();
+let _lastDate = new Date().toLocaleDateString('en-CA');
 function checkMidnight(){
-  const today=todayKey();
-  if(today===_lastDate) return;
-  _lastDate=today;
-  REACTORS.forEach(R=>['M1','M2'].forEach(M=>{
-    const mot=state[R].motors[M];
-    mot.runSec=0; mot.dailyKwh=0;
-    mot.inAlarm=false; mot.lastAlarmMinute=-1;
-    saveDaily(R,M,0,0);
-    el(`${R}_${M}_runtime`).textContent='0 min';
-    el(`${R}_${M}_energy`).textContent='0.000';
+  const today = new Date().toLocaleDateString('en-CA');
+  if(today === _lastDate) return;
+  _lastDate = today;
+  REACTORS.forEach(R => ['M1','M2'].forEach(M => {
+    const mot = state[R].motors[M];
+    mot.runSec    = 0;
+    mot.dailyKwh  = 0;
+    mot.inAlarm   = false;
+    mot.lastAlarmMinute = -1;
+    
+    el(`${R}_${M}_runtime`).textContent = '0 min';
+    el(`${R}_${M}_energy`).textContent  = '0.000';
   }));
 }
-setInterval(checkMidnight,30000);
+setInterval(checkMidnight, 30000);
 
 /* ═══════════════════════════════════════════
    CONDITION
 ═══════════════════════════════════════════ */
-function getCondition(amps,thr){
-  if(amps<=0)    return 'idle';
-  if(amps>thr)   return 'abnormal';
+function getCondition(amps, thr){
+  if(amps <= 0)   return 'idle';
+  if(amps > thr)  return 'abnormal';
   return 'healthy';
 }
-const CMETA={
-  idle    :{label:'⚪ IDLE',    pill:'pill-idle',    title:'title-idle',    block:'state-idle',    color:'#4a5a7a'},
-  healthy :{label:'🟢 HEALTHY', pill:'pill-healthy', title:'title-healthy', block:'state-healthy', color:'#39ff14'},
-  abnormal:{label:'🔴 ABNORMAL',pill:'pill-abnormal',title:'title-abnormal',block:'state-abnormal',color:'#ff1744'}
+const CMETA = {
+  idle    :{ label:'⚪ IDLE',     pill:'pill-idle',     title:'title-idle',     block:'state-idle',     color:'#4a5a7a' },
+  healthy :{ label:'🟢 HEALTHY',  pill:'pill-healthy',  title:'title-healthy',  block:'state-healthy',  color:'#39ff14' },
+  abnormal:{ label:'🔴 ABNORMAL', pill:'pill-abnormal', title:'title-abnormal', block:'state-abnormal', color:'#ff1744' }
 };
 
 /* ═══════════════════════════════════════════
    FORMAT HELPERS
 ═══════════════════════════════════════════ */
 function fmtRuntime(sec){
-  if(sec<3600){ return `${Math.floor(sec/60)} min`; }
-  const h=Math.floor(sec/3600), m=Math.floor((sec%3600)/60);
-  return m>0?`${h}h ${m}m`:`${h}h`;
+  if(sec < 3600) return `${Math.floor(sec/60)} min`;
+  const h = Math.floor(sec/3600), m = Math.floor((sec%3600)/60);
+  return m > 0 ? `${h}h ${m}m` : `${h}h`;
 }
 function fmtKwh(kwh){ return kwh.toFixed(3); }
-function fmtTemp(v){ return (v===-127||v===null||v===undefined)?'--':Number(v).toFixed(1)+' °C'; }
+function fmtTemp(v){ return (v===-127||v===null||v===undefined) ? '--' : Number(v).toFixed(1)+' °C'; }
 function nowStr(){
-  const d=new Date();
-  return {date:d.toLocaleDateString('en-GB'),time:d.toLocaleTimeString('en-GB')};
+  const d = new Date();
+  return { date: d.toLocaleDateString('en-GB'), time: d.toLocaleTimeString('en-GB') };
 }
 function minuteOfDay(){ const d=new Date(); return d.getHours()*60+d.getMinutes(); }
 function el(id){ return document.getElementById(id); }
 
 /* ═══════════════════════════════════════════
-   ARC GAUGE
+   ARC GAUGE  — 2 decimal places
 ═══════════════════════════════════════════ */
-function drawGauge(id,amps,cond,cfg){
-  const canvas=el(id); if(!canvas) return;
-  const ctx=canvas.getContext('2d');
-  const W=canvas.width,H=canvas.height;
+function drawGauge(id, amps, cond, cfg){
+  const canvas = el(id); if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
   ctx.clearRect(0,0,W,H);
-  const color=CMETA[cond].color;
-  const cx=W/2,cy=H-8;
-  const r=Math.min(W*0.44,H*0.82);
-  const ratio=Math.min(amps/cfg.gaugeMax,1);
+  const color = CMETA[cond].color;
+  const cx = W/2, cy = H-8;
+  const r  = Math.min(W*0.44, H*0.82);
+  const ratio = Math.min(amps/cfg.gaugeMax, 1);
 
   // Track
   ctx.beginPath(); ctx.arc(cx,cy,r,Math.PI,2*Math.PI);
@@ -826,299 +831,484 @@ function drawGauge(id,amps,cond,cfg){
   }
 
   // Threshold marker
-  const thR=Math.min(cfg.threshold/cfg.gaugeMax,1);
-  const thA=Math.PI+thR*Math.PI;
+  const thR = Math.min(cfg.threshold/cfg.gaugeMax,1);
+  const thA = Math.PI+thR*Math.PI;
   ctx.beginPath();
-  ctx.moveTo(cx+(r-16)*Math.cos(thA),cy+(r-16)*Math.sin(thA));
-  ctx.lineTo(cx+(r+4)*Math.cos(thA),cy+(r+4)*Math.sin(thA));
+  ctx.moveTo(cx+(r-16)*Math.cos(thA), cy+(r-16)*Math.sin(thA));
+  ctx.lineTo(cx+(r+4) *Math.cos(thA), cy+(r+4) *Math.sin(thA));
   ctx.strokeStyle='#ff6d00'; ctx.lineWidth=2.5; ctx.stroke();
 
   // Ticks
   for(let i=0;i<=4;i++){
-    const a=Math.PI+(i/4)*Math.PI;
+    const a = Math.PI+(i/4)*Math.PI;
     ctx.fillStyle='#4a5a7a'; ctx.font='8px Share Tech Mono';
     ctx.textAlign='center'; ctx.textBaseline='middle';
-    ctx.fillText((i/4*cfg.gaugeMax).toFixed(0),cx+(r-26)*Math.cos(a),cy+(r-26)*Math.sin(a));
+    ctx.fillText((i/4*cfg.gaugeMax).toFixed(0), cx+(r-26)*Math.cos(a), cy+(r-26)*Math.sin(a));
   }
 
-  // Value
-  ctx.fillStyle=color; ctx.font='bold 20px Orbitron,monospace';
+  // Value — 2 decimal places
+  ctx.fillStyle=color; ctx.font='bold 18px Orbitron,monospace';
   ctx.textAlign='center'; ctx.textBaseline='middle';
   ctx.shadowColor=color; ctx.shadowBlur=cond==='idle'?0:8;
-  ctx.fillText(amps.toFixed(1),cx,cy-r*0.32); ctx.shadowBlur=0;
+  ctx.fillText(amps.toFixed(2), cx, cy-r*0.32);   // ← 2 d.p.
+  ctx.shadowBlur=0;
 
   // Unit
   ctx.fillStyle='#4a5a7a'; ctx.font='9px Share Tech Mono';
-  ctx.fillText('A',cx,cy-r*0.32+18);
+  ctx.fillText('A', cx, cy-r*0.32+18);
 
-  // Condition
+  // Condition label
   ctx.fillStyle=color; ctx.font='bold 7px Share Tech Mono';
-  ctx.fillText(cond.toUpperCase(),cx,cy-4);
+  ctx.fillText(cond.toUpperCase(), cx, cy-4);
 }
 
 /* ═══════════════════════════════════════════
-   RENDER LOGS
+   RENDER ALARM LOG  (with ACK button)
 ═══════════════════════════════════════════ */
-function renderLogs(R){
-  const rs=state[R];
-  el(`${R}_alarm_count`).textContent=rs.alarmLog.length;
-  el(`${R}_alarm_log`).innerHTML=rs.alarmLog.length===0
-    ?'<tr><td colspan="5" class="no-data">No alarms</td></tr>'
-    :rs.alarmLog.map(r=>`<tr class="row-alarm">
-        <td>${r.date}</td><td>${r.time}</td>
-        <td>${r.motor}</td><td>${r.amps}A</td><td>${r.cond}</td>
-      </tr>`).join('');
-
-  el(`${R}_run_count`).textContent=rs.runLog.length;
-  el(`${R}_run_log`).innerHTML=rs.runLog.length===0
-    ?'<tr><td colspan="5" class="no-data">No events</td></tr>'
-    :rs.runLog.map(r=>`<tr class="row-run">
-        <td>${r.date}</td><td>${r.time}</td>
-        <td>${r.motor}</td><td>${r.amps}A</td><td>${r.cond}</td>
-      </tr>`).join('');
+function renderAlarmLog(R){
+  const rs = state[R];
+  el(`${R}_alarm_count`).textContent = rs.alarmLog.length;
+  const tbody = el(`${R}_alarm_log`);
+  if(rs.alarmLog.length === 0){
+    tbody.innerHTML = '<tr><td colspan="6" class="no-data">No alarms</td></tr>';
+    return;
+  }
+  tbody.innerHTML = rs.alarmLog.map((r, idx) => {
+    const ackCell = r.acked
+      ? `<td><button class="ack-btn acked" disabled>✔ ${r.ackTime}</button></td>`
+      : `<td><button class="ack-btn" onclick="ackAlarm('${R}',${idx})">ACK</button></td>`;
+    const rowClass = r.acked ? 'row-alarm acked' : 'row-alarm';
+    return `<tr class="${rowClass}">
+      <td>${r.date}</td><td>${r.time}</td>
+      <td>${r.motor}</td><td>${r.amps}A</td><td>${r.cond}</td>
+      ${ackCell}
+    </tr>`;
+  }).join('');
 }
+
+/* ═══════════════════════════════════════════
+   RENDER RUN LOG  (max 20, newest first)
+═══════════════════════════════════════════ */
+function renderRunLog(R){
+  const rs = state[R];
+  el(`${R}_run_count`).textContent = rs.runLog.length;
+  const tbody = el(`${R}_run_log`);
+  if(rs.runLog.length === 0){
+    tbody.innerHTML = '<tr><td colspan="5" class="no-data">No events</td></tr>';
+    return;
+  }
+  tbody.innerHTML = rs.runLog.map(r => `<tr class="row-run">
+    <td>${r.date}</td><td>${r.time}</td>
+    <td>${r.motor}</td><td>${r.amps}A</td><td>${r.cond}</td>
+  </tr>`).join('');
+}
+
+function renderLogs(R){
+  renderAlarmLog(R);
+  renderRunLog(R);
+}
+
+/* ═══════════════════════════════════════════
+   ACK ALARM
+═══════════════════════════════════════════ */
+window.ackAlarm = function(R, idx){
+  const entry = state[R].alarmLog[idx];
+  if(!entry || entry.acked) return;
+  const now = new Date();
+  entry.acked   = true;
+  entry.ackTime = now.toLocaleTimeString('en-GB');
+  entry.ackDate = now.toLocaleDateString('en-GB');
+  // Persist ACK to Firebase
+  set(ref(DBS[R], `dashboard_alarms/${entry._fbKey}/acked`), true).catch(()=>{});
+  set(ref(DBS[R], `dashboard_alarms/${entry._fbKey}/ackTime`), entry.ackTime).catch(()=>{});
+  set(ref(DBS[R], `dashboard_alarms/${entry._fbKey}/ackDate`), entry.ackDate).catch(()=>{});
+  renderAlarmLog(R);
+};
 
 /* ═══════════════════════════════════════════
    UPDATE MOTOR UI
 ═══════════════════════════════════════════ */
-function updateMotorUI(R,M,amps,temp){
-  const rs=state[R], mot=rs.motors[M], cfg=mot.cfg;
-  const cond=getCondition(amps,cfg.threshold);
-  const meta=CMETA[cond];
-  const now=Date.now();
+function updateMotorUI(R, M, amps, temp){
+  const rs  = state[R];
+  const mot = rs.motors[M];
+  const cfg = mot.cfg;
+  const cond = getCondition(amps, cfg.threshold);
+  const meta = CMETA[cond];
+  const now  = Date.now();
 
-  // Accumulate runtime + energy (only when online AND amps > 0)
-  if(rs.online && mot.lastTs && amps>0){
-    const dtSec=(now-mot.lastTs)/1000;
-    mot.runSec+=dtSec;
-    const powerKw=(Math.sqrt(3)*cfg.voltage*amps*cfg.pf)/1000;
-    mot.dailyKwh+=powerKw*(dtSec/3600);
-    saveDaily(R,M,mot.runSec,mot.dailyKwh);
+  /* ── Accumulate runtime + energy (only online AND amps > 0) ── */
+  if(rs.online && mot.lastTs && amps > 0){
+    const dtSec  = (now - mot.lastTs) / 1000;
+    mot.runSec  += dtSec;
+    const powerKw = (Math.sqrt(3) * cfg.voltage * amps * cfg.pf) / 1000;
+    mot.dailyKwh += powerKw * (dtSec / 3600);
+
+    // Throttled Firebase write — at most every 10 seconds
+    if(now - mot._lastSaveTs > 10000){
+      mot._lastSaveTs = now;
+    }
   }
-  mot.lastTs=now;
-  mot.amps=amps;
+  mot.lastTs = now;
+  mot.amps   = amps;
 
-  // Alarm edge detection — per-minute deduplication
-  const nowAbove=(amps>cfg.threshold);
-  const curMin=minuteOfDay();
-  const {date,time}=nowStr();
+  /* ── Alarm edge detection — per-minute deduplication ── */
+  const nowAbove = (amps > cfg.threshold);
+  const curMin   = minuteOfDay();
+  const {date, time} = nowStr();
 
   if(nowAbove){
-    if(!mot.inAlarm || curMin!==mot.lastAlarmMinute){
-      rs.alarmLog.unshift({date,time,motor:mot.label,amps:amps.toFixed(2),cond:'ABNORMAL'});
-      if(rs.alarmLog.length>MAX_LOG) rs.alarmLog.pop();
-      mot.inAlarm=true; mot.lastAlarmMinute=curMin;
-      renderLogs(R);
+    if(!mot.inAlarm || curMin !== mot.lastAlarmMinute){
+      const fbKey = `${R}_${M}_${Date.now()}`;
+      const entry = { date, time, motor:mot.label, amps:amps.toFixed(2), cond:'ABNORMAL', acked:false, ackTime:'', ackDate:'', _fbKey:fbKey };
+      rs.alarmLog.unshift(entry);
+      if(rs.alarmLog.length > MAX_ALARM) rs.alarmLog.pop();
+      // Persist alarm to Firebase
+      set(ref(DBS[R], `dashboard_alarms/${fbKey}`), { date, time, motor:mot.label, amps:amps.toFixed(2), cond:'ABNORMAL', acked:false }).catch(()=>{});
+      mot.inAlarm = true;
+      mot.lastAlarmMinute = curMin;
+      renderAlarmLog(R);
     }
   } else {
     if(mot.inAlarm){
-      rs.runLog.unshift({date,time,motor:mot.label,amps:amps.toFixed(2),cond:'ALARM CLEAR'});
-      if(rs.runLog.length>MAX_LOG) rs.runLog.pop();
-      mot.inAlarm=false; mot.lastAlarmMinute=-1;
-      renderLogs(R);
+      rs.runLog.unshift({ date, time, motor:mot.label, amps:amps.toFixed(2), cond:'ALARM CLEAR' });
+      if(rs.runLog.length > MAX_RUN) rs.runLog.pop();   // ← cap at 20
+      mot.inAlarm = false;
+      mot.lastAlarmMinute = -1;
+      renderRunLog(R);
     }
   }
 
-  // Non-alarm condition transitions → run log
-  if(cond!==mot.condition){
-    if(cond!=='abnormal' && mot.condition!=='abnormal'){
-      rs.runLog.unshift({date,time,motor:mot.label,amps:amps.toFixed(2),cond:cond.toUpperCase()});
-      if(rs.runLog.length>MAX_LOG) rs.runLog.pop();
-      renderLogs(R);
+  /* ── Non-alarm condition transitions → run log ── */
+  if(cond !== mot.condition){
+    if(cond !== 'abnormal' && mot.condition !== 'abnormal'){
+      rs.runLog.unshift({ date, time, motor:mot.label, amps:amps.toFixed(2), cond:cond.toUpperCase() });
+      if(rs.runLog.length > MAX_RUN) rs.runLog.pop();   // ← cap at 20
+      renderRunLog(R);
     }
-    mot.condition=cond;
+    mot.condition = cond;
   }
 
-  // DOM updates
-  drawGauge(`gauge_${R}_${M}`,amps,cond,cfg);
-  el(`gsub_${R}_${M}`).textContent=`MAX ${cfg.gaugeMax}A · THR ${cfg.threshold}A`;
-  el(`block_${R}_${M}`).className=`motor-block ${meta.block}`;
-  el(`title_${R}_${M}`).className=`motor-block-title ${meta.title}`;
-  const pill=el(`pill_${R}_${M}`);
-  pill.textContent=meta.label; pill.className=`condition-pill ${meta.pill}`;
-  el(`${R}_${M}_temp`).textContent=fmtTemp(temp);
-  el(`${R}_${M}_runtime`).textContent=fmtRuntime(Math.floor(mot.runSec));
-  el(`${R}_${M}_energy`).textContent=fmtKwh(mot.dailyKwh);
+  /* ── DOM updates ── */
+  drawGauge(`gauge_${R}_${M}`, amps, cond, cfg);
+  el(`gsub_${R}_${M}`).textContent    = `MAX ${cfg.gaugeMax}A · THR ${cfg.threshold}A`;
+  el(`block_${R}_${M}`).className     = `motor-block ${meta.block}`;
+  el(`title_${R}_${M}`).className     = `motor-block-title ${meta.title}`;
+  const pill = el(`pill_${R}_${M}`);
+  pill.textContent = meta.label;
+  pill.className   = `condition-pill ${meta.pill}`;
+  el(`${R}_${M}_temp`).textContent    = fmtTemp(temp);
+  el(`${R}_${M}_runtime`).textContent = fmtRuntime(Math.floor(mot.runSec));
+  el(`${R}_${M}_energy`).textContent  = fmtKwh(mot.dailyKwh);
 }
 
 /* ═══════════════════════════════════════════
    RESET MOTOR ON OFFLINE
 ═══════════════════════════════════════════ */
-function resetMotorOffline(R,M){
-  const mot=state[R].motors[M];
-  mot.lastTs=null; mot.condition='idle'; mot.amps=0; mot.inAlarm=false;
-  drawGauge(`gauge_${R}_${M}`,0,'idle',mot.cfg);
-  el(`block_${R}_${M}`).className='motor-block state-idle';
-  el(`title_${R}_${M}`).className='motor-block-title title-idle';
-  el(`pill_${R}_${M}`).textContent='⚪ IDLE';
-  el(`pill_${R}_${M}`).className='condition-pill pill-idle';
-  el(`${R}_${M}_temp`).textContent='--';
+function resetMotorOffline(R, M){
+  const mot = state[R].motors[M];
+  
+  mot.lastTs    = null;
+  mot.condition = 'idle';
+  mot.amps      = 0;
+  mot.inAlarm   = false;
+  drawGauge(`gauge_${R}_${M}`, 0, 'idle', mot.cfg);
+  el(`block_${R}_${M}`).className  = 'motor-block state-idle';
+  el(`title_${R}_${M}`).className  = 'motor-block-title title-idle';
+  el(`pill_${R}_${M}`).textContent = '⚪ IDLE';
+  el(`pill_${R}_${M}`).className   = 'condition-pill pill-idle';
+  el(`${R}_${M}_temp`).textContent = '--';
+  // Runtime & kWh display preserved — not zeroed
 }
 
 /* ═══════════════════════════════════════════
    ONLINE / OFFLINE
 ═══════════════════════════════════════════ */
-function setOnline(R,online){
-  if(state[R].online===online) return;
-  state[R].online=online;
-  const badge=el(`${R}_status`);
+function setOnline(R, online){
+  if(state[R].online === online) return;
+  state[R].online = online;
+  const badge = el(`${R}_status`);
   if(online){
-    badge.textContent='🟢 ONLINE'; badge.className='status-badge badge-online';
+    badge.textContent = '🟢 ONLINE';
+    badge.className   = 'status-badge badge-online';
   } else {
-    badge.textContent='🔴 OFFLINE'; badge.className='status-badge badge-offline';
-    ['M1','M2'].forEach(M=>resetMotorOffline(R,M));
+    badge.textContent = '🔴 OFFLINE';
+    badge.className   = 'status-badge badge-offline';
+    ['M1','M2'].forEach(M => resetMotorOffline(R, M));
   }
 }
 
 setInterval(()=>{
-  REACTORS.forEach(R=>setOnline(R,(Date.now()-state[R].hb)<OFFLINE_MS));
-},5000);
+  REACTORS.forEach(R => setOnline(R, (Date.now()-state[R].hb) < OFFLINE_MS));
+}, 5000);
 
 /* ═══════════════════════════════════════════
-   LIVE TICKER — updates display every 5s
+   LIVE TICKER — smooth display update every 5s
 ═══════════════════════════════════════════ */
 setInterval(()=>{
   REACTORS.forEach(R=>{
     if(!state[R].online) return;
     ['M1','M2'].forEach(M=>{
-      const mot=state[R].motors[M];
-      if(mot.amps>0 && mot.lastTs){
-        const extraSec=(Date.now()-mot.lastTs)/1000;
-        const cfg=mot.cfg;
-        const extraKwh=(Math.sqrt(3)*cfg.voltage*mot.amps*cfg.pf/1000)*(extraSec/3600);
-        el(`${R}_${M}_runtime`).textContent=fmtRuntime(Math.floor(mot.runSec+extraSec));
-        el(`${R}_${M}_energy`).textContent=fmtKwh(mot.dailyKwh+extraKwh);
+      const mot = state[R].motors[M];
+      if(mot.amps > 0 && mot.lastTs){
+        const extraSec = (Date.now()-mot.lastTs)/1000;
+        const cfg = mot.cfg;
+        const extraKwh = (Math.sqrt(3)*cfg.voltage*mot.amps*cfg.pf/1000)*(extraSec/3600);
+        el(`${R}_${M}_runtime`).textContent = fmtRuntime(Math.floor(mot.runSec+extraSec));
+        el(`${R}_${M}_energy`).textContent  = fmtKwh(mot.dailyKwh+extraKwh);
       }
     });
   });
-},5000);
+}, 5000);
 
 /* ═══════════════════════════════════════════
-   FIREBASE LISTENERS — generic for all reactors
+   REBUILD DAILY FROM HISTORY
 ═══════════════════════════════════════════ */
-function attachListeners(R){
-  onValue(ref(DBS[R],'live_data'),snap=>{
-    const d=snap.val(); if(!d) return;
-    state[R].hb=Date.now(); setOnline(R,true);
-    updateMotorUI(R,'M1',Number(d.ct1_amps||0),d.t1);
-    updateMotorUI(R,'M2',Number(d.ct2_amps||0),d.t2);
-  });
-  onValue(ref(DBS[R],'history'),snap=>{
-    const d=snap.val(); if(!d) return;
-    state[R].history=Object.values(d);
-    buildLogsFromHistory(R);
-  });
+function rebuildDailyFromHistory(R){
+
+  const today = new Date().toLocaleDateString('en-CA');
+
+  const motors = {
+    M1:{ runSec:0, kwh:0 },
+    M2:{ runSec:0, kwh:0 }
+  };
+
+  const rows = [...state[R].history]
+    .filter(r=>{
+      if(!r.timestamp) return false;
+      return r.timestamp.startsWith(today);
+    })
+    .sort((a,b)=>
+      new Date(a.timestamp)-new Date(b.timestamp)
+    );
+
+  for(let i=1;i<rows.length;i++){
+
+    const prev = rows[i-1];
+    const curr = rows[i];
+
+    const dt =
+      (new Date(curr.timestamp) -
+       new Date(prev.timestamp))/1000;
+
+    const a1 = Number(curr.ct1_amps||0);
+
+    if(a1>0){
+
+      motors.M1.runSec += dt;
+
+      const cfg = state[R].motors.M1.cfg;
+
+      const kw =
+        (Math.sqrt(3) *
+         cfg.voltage *
+         a1 *
+         cfg.pf) / 1000;
+
+      motors.M1.kwh += kw * dt / 3600;
+    }
+
+    const a2 = Number(curr.ct2_amps||0);
+
+    if(a2>0){
+
+      motors.M2.runSec += dt;
+
+      const cfg = state[R].motors.M2.cfg;
+
+      const kw =
+        (Math.sqrt(3) *
+         cfg.voltage *
+         a2 *
+         cfg.pf) / 1000;
+
+      motors.M2.kwh += kw * dt / 3600;
+    }
+  }
+
+  state[R].motors.M1.runSec = motors.M1.runSec;
+  state[R].motors.M1.dailyKwh = motors.M1.kwh;
+
+  state[R].motors.M2.runSec = motors.M2.runSec;
+  state[R].motors.M2.dailyKwh = motors.M2.kwh;
+
+  el(`${R}_M1_runtime`).textContent =
+    fmtRuntime(Math.floor(motors.M1.runSec));
+
+  el(`${R}_M1_energy`).textContent =
+    fmtKwh(motors.M1.kwh);
+
+  el(`${R}_M2_runtime`).textContent =
+    fmtRuntime(Math.floor(motors.M2.runSec));
+
+  el(`${R}_M2_energy`).textContent =
+    fmtKwh(motors.M2.kwh);
 }
-REACTORS.forEach(R=>attachListeners(R));
 
 /* ═══════════════════════════════════════════
    BUILD LOGS FROM HISTORY
 ═══════════════════════════════════════════ */
 function buildLogsFromHistory(R){
-  const rs=state[R];
-  rs.alarmLog=[]; rs.runLog=[];
+  const rs = state[R];
+  rs.alarmLog = [];
+  rs.runLog   = [];
 
-  [{M:'M1',ctKey:'ct1_amps'},{M:'M2',ctKey:'ct2_amps'}].forEach(({M,ctKey})=>{
-    const mot=rs.motors[M];
+  [{ M:'M1', ctKey:'ct1_amps' },{ M:'M2', ctKey:'ct2_amps' }].forEach(({ M, ctKey })=>{
+    const mot = rs.motors[M];
     let prevCond='idle', prevAbove=false, lastAlarmMin=-1;
 
     [...rs.history]
-      .sort((a,b)=>new Date(a.timestamp)-new Date(b.timestamp))
+      .sort((a,b) => new Date(a.timestamp)-new Date(b.timestamp))
       .forEach(row=>{
-        const amps=Number(row[ctKey]||0);
-        const cond=getCondition(amps,mot.cfg.threshold);
-        const date=row.date||'', time=row.time||'';
-        const nowAbove=(amps>mot.cfg.threshold);
-        let rowMin=-1;
+        const amps = Number(row[ctKey]||0);
+        const cond = getCondition(amps, mot.cfg.threshold);
+        const date = row.date||'', time = row.time||'';
+        const nowAbove = (amps > mot.cfg.threshold);
+        let rowMin = -1;
         try{ const d=new Date(row.timestamp); rowMin=d.getHours()*60+d.getMinutes(); }catch(e){}
 
         if(nowAbove){
-          if(!prevAbove||rowMin!==lastAlarmMin){
-            rs.alarmLog.push({date,time,motor:mot.label,amps:amps.toFixed(2),cond:'ABNORMAL'});
-            lastAlarmMin=rowMin;
+          if(!prevAbove || rowMin !== lastAlarmMin){
+            const fbKey = `hist_${R}_${M}_${row.timestamp||Date.now()}`;
+            rs.alarmLog.push({ date, time, motor:mot.label, amps:amps.toFixed(2), cond:'ABNORMAL', acked:false, ackTime:'', ackDate:'', _fbKey:fbKey });
+            lastAlarmMin = rowMin;
           }
         } else if(prevAbove){
-          rs.runLog.push({date,time,motor:mot.label,amps:amps.toFixed(2),cond:'ALARM CLEAR'});
-          lastAlarmMin=-1;
+          rs.runLog.push({ date, time, motor:mot.label, amps:amps.toFixed(2), cond:'ALARM CLEAR' });
+          lastAlarmMin = -1;
         }
 
-        if(cond!==prevCond&&cond!=='abnormal'&&prevCond!=='abnormal'){
-          rs.runLog.push({date,time,motor:mot.label,amps:amps.toFixed(2),cond:cond.toUpperCase()});
+        if(cond !== prevCond && cond !== 'abnormal' && prevCond !== 'abnormal'){
+          rs.runLog.push({ date, time, motor:mot.label, amps:amps.toFixed(2), cond:cond.toUpperCase() });
         }
         prevCond=cond; prevAbove=nowAbove;
       });
   });
 
-  const sortDesc=arr=>arr
-    .sort((a,b)=>new Date(`${b.date} ${b.time}`)-new Date(`${a.date} ${a.time}`))
-    .slice(0,MAX_LOG);
-  rs.alarmLog=sortDesc(rs.alarmLog);
-  rs.runLog=sortDesc(rs.runLog);
+  // Sort newest first, cap
+  const sortDesc = arr => arr
+    .sort((a,b) => new Date(`${b.date} ${b.time}`) - new Date(`${a.date} ${a.time}`));
+
+  rs.alarmLog = sortDesc(rs.alarmLog).slice(0, MAX_ALARM);
+  rs.runLog   = sortDesc(rs.runLog).slice(0, MAX_RUN);   // ← cap at 20
+
   renderLogs(R);
 }
 
 /* ═══════════════════════════════════════════
-   CSV DOWNLOAD
+   CSV DOWNLOAD  — alarm includes ACK column
 ═══════════════════════════════════════════ */
-window.downloadCSV=function(R,type){
-  const rs=state[R];
+window.downloadCSV = function(R, type){
+  const rs = state[R];
   let csv='', filename='';
+
   if(type==='alarm'){
     if(!rs.alarmLog.length){ alert(`No alarm records for ${R}.`); return; }
-    csv='Date,Time,Motor,Current(A),Condition\n';
-    rs.alarmLog.forEach(r=>{ csv+=`${r.date},${r.time},${r.motor},${r.amps},${r.cond}\n`; });
-    filename=`${R}_AlarmLog.csv`;
+    csv = 'Date,Time,Motor,Current(A),Condition,ACK_Status,ACK_Date,ACK_Time\n';
+    rs.alarmLog.forEach(r=>{
+      const ackStatus = r.acked ? 'ACKNOWLEDGED' : 'PENDING';
+      const ackDate   = r.acked ? r.ackDate : '';
+      const ackTime   = r.acked ? r.ackTime : '';
+      csv += `${r.date},${r.time},${r.motor},${r.amps},${r.cond},${ackStatus},${ackDate},${ackTime}\n`;
+    });
+    filename = `${R}_AlarmLog.csv`;
+
   } else if(type==='run'){
     if(!rs.runLog.length){ alert(`No run records for ${R}.`); return; }
-    csv='Date,Time,Motor,Current(A),Condition\n';
-    rs.runLog.forEach(r=>{ csv+=`${r.date},${r.time},${r.motor},${r.amps},${r.cond}\n`; });
-    filename=`${R}_RunLog.csv`;
+    csv = 'Date,Time,Motor,Current(A),Condition\n';
+    rs.runLog.forEach(r=>{ csv += `${r.date},${r.time},${r.motor},${r.amps},${r.cond}\n`; });
+    filename = `${R}_RunLog.csv`;
+
   } else {
     if(!rs.history.length){ alert(`No history for ${R}.`); return; }
-    csv='Date,Time,Motor1_Current(A),Motor1_Temp(C),Motor1_Condition,'
-       +'Motor2_Current(A),Motor2_Temp(C),Motor2_Condition\n';
+    csv = 'Date,Time,Motor1_Current(A),Motor1_Temp(C),Motor1_Condition,'
+        + 'Motor2_Current(A),Motor2_Temp(C),Motor2_Condition\n';
     [...rs.history]
-      .sort((a,b)=>new Date(a.timestamp)-new Date(b.timestamp))
+      .sort((a,b) => new Date(a.timestamp)-new Date(b.timestamp))
       .forEach(row=>{
-        const c1=Number(row.ct1_amps||0), c2=Number(row.ct2_amps||0);
-        const t1=row.t1!==-127?Number(row.t1||0).toFixed(1):'--';
-        const t2=row.t2!==-127?Number(row.t2||0).toFixed(1):'--';
-        csv+=`${row.date||''},${row.time||''},`
-            +`${c1.toFixed(2)},${t1},${getCondition(c1,state[R].motors.M1.cfg.threshold).toUpperCase()},`
-            +`${c2.toFixed(2)},${t2},${getCondition(c2,state[R].motors.M2.cfg.threshold).toUpperCase()}\n`;
+        const c1 = Number(row.ct1_amps||0), c2 = Number(row.ct2_amps||0);
+        const t1 = row.t1!==-127 ? Number(row.t1||0).toFixed(1) : '--';
+        const t2 = row.t2!==-127 ? Number(row.t2||0).toFixed(1) : '--';
+        csv += `${row.date||''},${row.time||''},`
+             + `${c1.toFixed(2)},${t1},${getCondition(c1,state[R].motors.M1.cfg.threshold).toUpperCase()},`
+             + `${c2.toFixed(2)},${t2},${getCondition(c2,state[R].motors.M2.cfg.threshold).toUpperCase()}\n`;
       });
-    filename=`${R}_FullHistory.csv`;
+    filename = `${R}_FullHistory.csv`;
   }
-  const blob=new Blob([csv],{type:'text/csv'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');
+
+  const blob = new Blob([csv],{type:'text/csv'});
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
   a.href=url; a.download=filename; a.click();
   URL.revokeObjectURL(url);
 };
 
 /* ═══════════════════════════════════════════
+   FIREBASE LISTENERS
+═══════════════════════════════════════════ */
+function attachListeners(R){
+  // Live sensor data
+  onValue(ref(DBS[R],'live_data'), snap=>{
+    const d = snap.val(); if(!d) return;
+    state[R].hb = Date.now();
+    setOnline(R, true);
+    updateMotorUI(R,'M1', Number(d.ct1_amps||0), d.t1);
+    updateMotorUI(R,'M2', Number(d.ct2_amps||0), d.t2);
+  });
+
+  // Historical data
+  onValue(ref(DBS[R],'history'), snap=>{
+
+    const d = snap.val();
+    if(!d) return;
+
+    state[R].history =
+      Object.values(d);
+
+    rebuildDailyFromHistory(R);
+
+    buildLogsFromHistory(R);
+  });
+
+  // Persisted alarms (with ACK state) — sync across devices
+  onValue(ref(DBS[R],'dashboard_alarms'), snap=>{
+    const d = snap.val(); if(!d) return;
+    // Merge ACK state into existing alarmLog entries
+    Object.entries(d).forEach(([fbKey, val])=>{
+      const entry = state[R].alarmLog.find(e => e._fbKey === fbKey);
+      if(entry && val.acked && !entry.acked){
+        entry.acked   = true;
+        entry.ackTime = val.ackTime || '';
+        entry.ackDate = val.ackDate || '';
+      }
+    });
+    renderAlarmLog(R);
+  });
+
+}
+
+/* ═══════════════════════════════════════════
    SETTINGS MODAL
 ═══════════════════════════════════════════ */
-let _eR=null,_eM=null;
+let _eR=null, _eM=null;
 
-window.openSettings=function(R,M){
+window.openSettings = function(R, M){
   _eR=R; _eM=M;
-  const cfg=state[R].motors[M].cfg;
-  const name=M==='M1'?'BACKUP PUMP':'BOOSTER 2';
-  el('modal_title').textContent=`⚙️ ${R} · ${name} SETTINGS`;
-  el('inp_voltage').value=cfg.voltage;
-  el('inp_pf').value=cfg.pf;
-  el('inp_thr').value=cfg.threshold;
-  el('inp_max').value=cfg.gaugeMax;
+  const cfg  = state[R].motors[M].cfg;
+  const name = M==='M1' ? 'BACKUP PUMP' : 'BOOSTER 2';
+  el('modal_title').textContent  = `⚙️ ${R} · ${name} SETTINGS`;
+  el('inp_voltage').value = cfg.voltage;
+  el('inp_pf').value      = cfg.pf;
+  el('inp_thr').value     = cfg.threshold;
+  el('inp_max').value     = cfg.gaugeMax;
   el('settings_modal').classList.add('open');
 };
 
-window.closeSettings=function(){
+window.closeSettings = function(){
   el('settings_modal').classList.remove('open');
   _eR=null; _eM=null;
 };
 
-window.saveSettings=function(){
+window.saveSettings = function(){
   if(!_eR||!_eM) return;
   const v=parseFloat(el('inp_voltage').value);
   const p=parseFloat(el('inp_pf').value);
@@ -1130,37 +1320,28 @@ window.saveSettings=function(){
   if(isNaN(g)||g<=0)        { alert('Gauge max must be > 0 A'); return; }
   if(t>=g)                  { alert('Threshold must be less than Gauge Max'); return; }
 
-  const newCfg={voltage:v,pf:p,threshold:t,gaugeMax:g};
-  state[_eR].motors[_eM].cfg=newCfg;
-  saveCfg(_eR,_eM,newCfg);
+  const newCfg = { voltage:v, pf:p, threshold:t, gaugeMax:g };
+  state[_eR].motors[_eM].cfg = newCfg;
+  // Save to Firebase instead of localStorage
+  saveCfgToFirebase(_eR, _eM, newCfg);
 
-  const mot=state[_eR].motors[_eM];
-  const newCond=getCondition(mot.amps,t);
-  mot.condition=newCond;
-  const meta=CMETA[newCond];
-  drawGauge(`gauge_${_eR}_${_eM}`,mot.amps,newCond,newCfg);
-  el(`gsub_${_eR}_${_eM}`).textContent=`MAX ${g}A · THR ${t}A`;
-  el(`block_${_eR}_${_eM}`).className=`motor-block ${meta.block}`;
-  el(`title_${_eR}_${_eM}`).className=`motor-block-title ${meta.title}`;
-  el(`pill_${_eR}_${_eM}`).textContent=meta.label;
-  el(`pill_${_eR}_${_eM}`).className=`condition-pill ${meta.pill}`;
+  const mot     = state[_eR].motors[_eM];
+  const newCond = getCondition(mot.amps, t);
+  mot.condition = newCond;
+  const meta    = CMETA[newCond];
+
+  drawGauge(`gauge_${_eR}_${_eM}`, mot.amps, newCond, newCfg);
+  el(`gsub_${_eR}_${_eM}`).textContent   = `MAX ${g}A · THR ${t}A`;
+  el(`block_${_eR}_${_eM}`).className    = `motor-block ${meta.block}`;
+  el(`title_${_eR}_${_eM}`).className    = `motor-block-title ${meta.title}`;
+  el(`pill_${_eR}_${_eM}`).textContent   = meta.label;
+  el(`pill_${_eR}_${_eM}`).className     = `condition-pill ${meta.pill}`;
   closeSettings();
 };
 
-el('settings_modal').addEventListener('click',function(e){
+el('settings_modal').addEventListener('click', function(e){
   if(e.target===this) closeSettings();
 });
-
-/* ═══════════════════════════════════════════
-   INITIAL GAUGE DRAW
-═══════════════════════════════════════════ */
-REACTORS.forEach(R=>['M1','M2'].forEach(M=>{
-  const mot=state[R].motors[M];
-  drawGauge(`gauge_${R}_${M}`,0,'idle',mot.cfg);
-  el(`gsub_${R}_${M}`).textContent=`MAX ${mot.cfg.gaugeMax}A · THR ${mot.cfg.threshold}A`;
-  el(`${R}_${M}_runtime`).textContent=fmtRuntime(Math.floor(mot.runSec));
-  el(`${R}_${M}_energy`).textContent=fmtKwh(mot.dailyKwh);
-}));
 </script>
 </body>
 </html>
