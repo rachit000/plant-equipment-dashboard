@@ -1415,10 +1415,45 @@ window.downloadCSV = function(R, type){
 
   } else if(type==='maint'){
     if(!rs.maintLog.length){ alert(`No maintenance records for ${R}.`); return; }
-    csv = 'Equipment,Start_Time,End_Time,Status\n';
+    
+    // Header with separated Date/Time and Duration
+    csv = 'Equipment,Start Date,Start Time,End Date,End Time,Total Downtime,Status\n';
+    
     rs.maintLog.forEach(r=>{
-      const status = r.endTime ? 'CLOSED' : 'ONGOING';
-      csv += `"${r.equipment}","${r.startTime}","${r.endTime || ''}","${status}"\n`;
+      const sDate = new Date(r.startTime);
+      const startDate = sDate.toLocaleDateString('en-GB');
+      const startTime = sDate.toLocaleTimeString('en-GB', { hour12: false }); // 24-hour format
+      
+      let endDate = '';
+      let endTime = '';
+      let duration = 'ONGOING';
+      let status = 'ONGOING';
+
+      if(r.endTime){
+        const eDate = new Date(r.endTime);
+        endDate = eDate.toLocaleDateString('en-GB');
+        endTime = eDate.toLocaleTimeString('en-GB', { hour12: false }); // 24-hour format
+        status = 'CLOSED';
+        
+        // Calculate Duration
+        const diffMs = eDate - sDate;
+        const diffMinutes = Math.floor(diffMs / 60000);
+        
+        if(diffMinutes < 60){
+          duration = `${diffMinutes} min`;
+        } else if(diffMinutes < 1440){ // Less than 24 hours
+          const h = Math.floor(diffMinutes / 60);
+          const m = diffMinutes % 60;
+          duration = `${h}h ${m}m`;
+        } else {
+          const d = Math.floor(diffMinutes / 1440);
+          const h = Math.floor((diffMinutes % 1440) / 60);
+          const m = diffMinutes % 60;
+          duration = `${d}d ${h}h ${m}m`;
+        }
+      }
+
+      csv += `"${r.equipment}","${startDate}","${startTime}","${endDate}","${endTime}","${duration}","${status}"\n`;
     });
     filename = `${R}_MaintenanceLog.csv`;
 
