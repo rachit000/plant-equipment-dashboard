@@ -217,31 +217,14 @@ header .branding h1 {
 }
 .settings-btn:hover { opacity: 1; }
 
-/* 🔥 RESPONSIVE WRAPPER ENFORCEMENT */
-.gauge-wrap { 
-  display: flex; 
-  flex-direction: column; 
-  align-items: center; 
-  position: relative; 
-  width: 100%;
-}
-/* 🔥 FLUID SCALING OVERRIDES FOR 4K AND MOBILE ECOSYSTEMS */
-.gauge-wrap canvas { 
-  display: block; 
-  cursor: pointer; 
-  width: 100%;
-  max-width: 160px;
-  height: auto;
-  aspect-ratio: 150 / 95;
-}
+.gauge-wrap { display: flex; flex-direction: column; align-items: center; position: relative; }
+.gauge-wrap canvas { display: block; cursor: pointer; }
 .gauge-sub { font-size: 0.6rem; color: var(--dim); text-align: center; margin-top: 1px; }
 
 .sparkline-canvas {
   background: var(--spark-bg);
   border-radius: 3px;
   margin-top: 2px;
-  width: 100%;
-  height: 20px;
 }
 
 /* HORIZONTAL FIXED LABELS COMPONENT BLOCK */
@@ -297,7 +280,7 @@ header .branding h1 {
   display: flex; justify-content: space-around;
 }
 
-/* ADJUSTED LOG VIEW CONTAINER */
+/* ADJUSTED FLEXIBLE LOG VIEW MATRIX */
 .reactor-logs { display: flex; flex-direction: column; gap: 10px; }
 .log-panel { background: var(--panel2); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
 .log-panel-header {
@@ -352,6 +335,7 @@ tr:hover { background: var(--table-hover); }
   color: var(--green); cursor: default;
 }
 
+/* CLOSING ACTION INTERACTIVE TRIGGER BUTTON */
 .close-job-btn {
   background: rgba(255, 109, 0, 0.15); border: 1px solid var(--orange);
   color: var(--orange); border-radius: 4px; padding: 1px 4px;
@@ -360,7 +344,7 @@ tr:hover { background: var(--table-hover); }
 }
 .close-job-btn:hover { background: var(--orange); color: #000; }
 
-/* DROPDOWN SELECT PRESET BAR */
+/* RE-ENGINEERED 24-HOUR DOUBLE DROPDOWN SELECT PRESET BAR */
 .csv-section { display: flex; flex-direction: column; gap: 6px; position: relative; z-index: 5; }
 .csv-label { font-size: 0.63rem; color: var(--dim); text-transform: uppercase; letter-spacing: 1px; }
 .dropdown-flex-row { display: flex; gap: 4px; width: 100%; align-items: center; }
@@ -373,6 +357,7 @@ tr:hover { background: var(--table-hover); }
   width: 100%; outline: none; cursor: pointer;
 }
 .dropdown-select-element:focus { border-color: var(--cyan); }
+.dropdown-select-element option { background: var(--panel); color: var(--text); }
 
 .csv-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
 .csv-btn {
@@ -420,6 +405,10 @@ tr:hover { background: var(--table-hover); }
   font-family: 'Share Tech Mono', monospace;
   font-size: 0.85rem; padding: 7px 10px; outline: none;
 }
+.modal-field input:focus { border-color: var(--cyan); }
+.modal-field input:disabled { opacity: 0.4; cursor: not-allowed; }
+.input-error { border-color: var(--red) !important; }
+.error-msg { color: var(--red); font-size: 0.58rem; display: none; }
 
 .modal-field input[type="datetime-local"]::-webkit-calendar-picker-indicator { filter: invert(0.5); cursor: pointer; }
 .modal-actions { display: flex; gap: 8px; margin-top: 4px; }
@@ -437,6 +426,10 @@ tr:hover { background: var(--table-hover); }
   cursor: pointer; transition: opacity 0.2s;
 }
 .modal-cancel:hover { opacity: 0.8; }
+
+@media (pointer: coarse) {
+  .settings-btn, .ack-btn, .csv-btn, .nav-btn, .lock-btn { min-height: 32px; min-width: 44px; padding: 6px 10px; }
+}
 </style>
 </head>
 <body class="dark-theme">
@@ -444,7 +437,7 @@ tr:hover { background: var(--table-hover); }
 
 <header>
   <div class="branding">
-    <h1>⚡ PLANT EQUIPMENT DASHBOARD PRO</h1>
+    <h1>⚡ AMCHEM PLANT EQUIPMENT DASHBOARD </h1>
     <div class="sub-title">4 Reactor Architecture — Continuous Real-Time Diagnostics</div>
   </div>
   <div class="header-controls">
@@ -489,13 +482,13 @@ tr:hover { background: var(--table-hover); }
     <div class="status-badge badge-offline" id="R1_status">OFFLINE</div>
   </div>
   <div class="motors-row">
-    <div class="motor-block id="block_R1_M1">
+    <div class="motor-block state-idle" id="block_R1_M1">
       <div class="motor-block-title title-idle" id="title_R1_M1">
         <svg class="pump-icon" viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8Z"/></svg>
         M1 · BACKUP PUMP <button class="settings-btn" onclick="openSettings('R1','M1')">⚙️</button>
       </div>
       <div class="gauge-wrap">
-        <canvas id="gauge_R1_M1" onclick="triggerGaugeDiagnostic('R1','M1')"></canvas>
+        <canvas id="gauge_R1_M1" width="150" height="95" onclick="triggerGaugeDiagnostic('R1','M1')"></canvas>
         <div class="gauge-sub" id="gsub_R1_M1">MAX 20A · THR 10A</div>
       </div>
       
@@ -526,13 +519,13 @@ tr:hover { background: var(--table-hover); }
       </div>
       <canvas class="sparkline-canvas" id="spark_R1_M1" width="165" height="20"></canvas>
     </div>
-    <div class="motor-block id="block_R1_M2">
+    <div class="motor-block state-idle" id="block_R1_M2">
       <div class="motor-block-title title-idle" id="title_R1_M2">
         <svg class="pump-icon" viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,12M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8Z"/></svg>
         M2 · BOOSTER 2 <button class="settings-btn" onclick="openSettings('R1','M2')">⚙️</button>
       </div>
       <div class="gauge-wrap">
-        <canvas id="gauge_R1_M2" onclick="triggerGaugeDiagnostic('R1','M2')"></canvas>
+        <canvas id="gauge_R1_M2" width="150" height="95" onclick="triggerGaugeDiagnostic('R1','M2')"></canvas>
         <div class="gauge-sub" id="gsub_R1_M2">MAX 20A · THR 10A</div>
       </div>
       
@@ -629,13 +622,13 @@ tr:hover { background: var(--table-hover); }
     <div class="status-badge badge-offline" id="R2_status">OFFLINE</div>
   </div>
   <div class="motors-row">
-    <div class="motor-block id="block_R2_M1">
+    <div class="motor-block state-idle" id="block_R2_M1">
       <div class="motor-block-title title-idle" id="title_R2_M1">
         <svg class="pump-icon" viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8Z"/></svg>
         M1 · BACKUP PUMP <button class="settings-btn" onclick="openSettings('R2','M1')">⚙️</button>
       </div>
       <div class="gauge-wrap">
-        <canvas id="gauge_R2_M1" onclick="triggerGaugeDiagnostic('R2','M1')"></canvas>
+        <canvas id="gauge_R2_M1" width="150" height="95" onclick="triggerGaugeDiagnostic('R2','M1')"></canvas>
         <div class="gauge-sub" id="gsub_R2_M1">MAX 20A · THR 10A</div>
       </div>
       
@@ -666,13 +659,13 @@ tr:hover { background: var(--table-hover); }
       </div>
       <canvas class="sparkline-canvas" id="spark_R2_M1" width="165" height="20"></canvas>
     </div>
-    <div class="motor-block id="block_R2_M2">
+    <div class="motor-block state-idle" id="block_R2_M2">
       <div class="motor-block-title title-idle" id="title_R2_M2">
         <svg class="pump-icon" viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,12M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8Z"/></svg>
         M2 · BOOSTER 2 <button class="settings-btn" onclick="openSettings('R2','M2')">⚙️</button>
       </div>
       <div class="gauge-wrap">
-        <canvas id="gauge_R2_M2" onclick="triggerGaugeDiagnostic('R2','M2')"></canvas>
+        <canvas id="gauge_R2_M2" width="150" height="95" onclick="triggerGaugeDiagnostic('R2','M2')"></canvas>
         <div class="gauge-sub" id="gsub_R2_M2">MAX 20A · THR 10A</div>
       </div>
       
@@ -769,13 +762,13 @@ tr:hover { background: var(--table-hover); }
     <div class="status-badge badge-offline" id="R3_status">OFFLINE</div>
   </div>
   <div class="motors-row">
-    <div class="motor-block id="block_R3_M1">
+    <div class="motor-block state-idle" id="block_R3_M1">
       <div class="motor-block-title title-idle" id="title_R3_M1">
         <svg class="pump-icon" viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8Z"/></svg>
         M1 · BACKUP PUMP <button class="settings-btn" onclick="openSettings('R3','M1')">⚙️</button>
       </div>
       <div class="gauge-wrap">
-        <canvas id="gauge_R3_M1" onclick="triggerGaugeDiagnostic('R3','M1')"></canvas>
+        <canvas id="gauge_R3_M1" width="150" height="95" onclick="triggerGaugeDiagnostic('R3','M1')"></canvas>
         <div class="gauge-sub" id="gsub_R3_M1">MAX 20A · THR 10A</div>
       </div>
       
@@ -806,13 +799,13 @@ tr:hover { background: var(--table-hover); }
       </div>
       <canvas class="sparkline-canvas" id="spark_R3_M1" width="165" height="20"></canvas>
     </div>
-    <div class="motor-block id="block_R3_M2">
+    <div class="motor-block state-idle" id="block_R3_M2">
       <div class="motor-block-title title-idle" id="title_R3_M2">
         <svg class="pump-icon" viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,12M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8Z"/></svg>
         M2 · BOOSTER 2 <button class="settings-btn" onclick="openSettings('R3','M2')">⚙️</button>
       </div>
       <div class="gauge-wrap">
-        <canvas id="gauge_R3_M2" onclick="triggerGaugeDiagnostic('R3','M2')"></canvas>
+        <canvas id="gauge_R3_M2" width="150" height="95" onclick="triggerGaugeDiagnostic('R3','M2')"></canvas>
         <div class="gauge-sub" id="gsub_R3_M2">MAX 20A · THR 10A</div>
       </div>
       
@@ -911,13 +904,13 @@ tr:hover { background: var(--table-hover); }
     <div class="status-badge badge-offline" id="R4_status">OFFLINE</div>
   </div>
   <div class="motors-row">
-    <div class="motor-block id="block_R4_M1">
+    <div class="motor-block state-idle" id="block_R4_M1">
       <div class="motor-block-title title-idle" id="title_R4_M1">
         <svg class="pump-icon" viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8Z"/></svg>
         M1 · BACKUP PUMP <button class="settings-btn" onclick="openSettings('R4','M1')">⚙️</button>
       </div>
       <div class="gauge-wrap">
-        <canvas id="gauge_R4_M1" onclick="triggerGaugeDiagnostic('R4','M1')"></canvas>
+        <canvas id="gauge_R4_M1" width="150" height="95" onclick="triggerGaugeDiagnostic('R4','M1')"></canvas>
         <div class="gauge-sub" id="gsub_R4_M1">MAX 20A · THR 10A</div>
       </div>
       
@@ -948,13 +941,13 @@ tr:hover { background: var(--table-hover); }
       </div>
       <canvas class="sparkline-canvas" id="spark_R4_M1" width="165" height="20"></canvas>
     </div>
-    <div class="motor-block id="block_R4_M2">
+    <div class="motor-block state-idle" id="block_R4_M2">
       <div class="motor-block-title title-idle" id="title_R4_M2">
         <svg class="pump-icon" viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,12M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8Z"/></svg>
         M2 · BOOSTER 2 <button class="settings-btn" onclick="openSettings('R4','M2')">⚙️</button>
       </div>
       <div class="gauge-wrap">
-        <canvas id="gauge_R4_M2" onclick="triggerGaugeDiagnostic('R4','M2')"></canvas>
+        <canvas id="gauge_R4_M2" width="150" height="95" onclick="triggerGaugeDiagnostic('R4','M2')"></canvas>
         <div class="gauge-sub" id="gsub_R4_M2">MAX 20A · THR 10A</div>
       </div>
       
@@ -1428,89 +1421,12 @@ function minuteOfDay(){ const d=new Date(); return d.getHours()*60+d.getMinutes(
 function el(id){ return document.getElementById(id); }
 
 /* ═══════════════════════════════════════════
-   🔥 ATTRACTIVE HIGH-DPI ARC GAUGE RENDER PIPELINE
-═══════════════════════════════════════════ */
-function drawGauge(id, amps, cond, cfg){
-  const canvas = el(id); if(!canvas) return;
-  const ctx = canvas.getContext('2d');
-  
-  // 🔥 FETCH HARDWARE BACKING PIXEL RATIO (RETINA / 4K SHARPNESS CORRECTION)
-  const dpr = window.devicePixelRatio || 1;
-  const logicalWidth = 150;
-  const logicalHeight = 95;
-  
-  // Enforce internal element display dimensions
-  canvas.style.width = logicalWidth + "px";
-  canvas.style.height = logicalHeight + "px";
-  
-  // Scale up layout context coordinates array buffers grid mapping variables
-  canvas.width = logicalWidth * dpr;
-  canvas.height = logicalHeight * dpr;
-  ctx.scale(dpr, dpr);
-  
-  const W = logicalWidth;
-  const H = logicalHeight;
-  ctx.clearRect(0, 0, W, H);
-  
-  const color = CMETA[cond].color;
-  const unfillColor = document.body.classList.contains('dark-theme') ? '#1a2d55' : '#bcd0e5';
-  const labelColor = document.body.classList.contains('dark-theme') ? '#4a5a7a' : '#5d6d7e';
-
-  const cx = W / 2, cy = H - 8;
-  const r  = Math.min(W * 0.44, H * 0.82);
-  const ratio = Math.min(amps / cfg.gaugeMax, 1);
-
-  ctx.beginPath(); ctx.arc(cx, cy, r, Math.PI, 2 * Math.PI);
-  ctx.strokeStyle = unfillColor; ctx.lineWidth = 11; ctx.lineCap = 'round'; ctx.stroke();
-
-  if(ratio > 0){
-    ctx.beginPath(); ctx.arc(cx, cy, r, Math.PI, Math.PI + ratio * Math.PI);
-    ctx.strokeStyle = color; ctx.lineWidth = 11; ctx.lineCap = 'round';
-    ctx.stroke();
-  }
-
-  const thR = Math.min(cfg.threshold / cfg.gaugeMax, 1);
-  const thA = Math.PI + thR * Math.PI;
-  ctx.beginPath();
-  ctx.moveTo(cx + (r - 15) * Math.cos(thA), cy + (r - 15) * Math.sin(thA));
-  ctx.lineTo(cx + (r + 4) * Math.cos(thA), cy + (r+ 4) * Math.sin(thA));
-  ctx.strokeStyle = '#ff6d00'; ctx.lineWidth = 2.5; ctx.stroke();
-
-  for(let i = 0; i <= 4; i++){
-    const a = Math.PI + (i / 4) * Math.PI;
-    ctx.fillStyle = labelColor; ctx.font = '8px Share Tech Mono';
-    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    ctx.fillText((i / 4 * cfg.gaugeMax).toFixed(0), cx + (r - 22) * Math.cos(a), cy + (r - 22) * Math.sin(a));
-  }
-
-  ctx.fillStyle = color; ctx.font = 'bold 22px Orbitron,monospace';
-  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-  ctx.fillText(amps.toFixed(2), cx, cy - r * 0.25);
-
-  ctx.fillStyle = labelColor; ctx.font = '9px Share Tech Mono';
-  ctx.fillText('AMPS', cx, cy - r * 0.25 + 18);
-}
-
-/* ═══════════════════════════════════════════
-   HIGH-DPI TRANSLATED SPARKLINE RENDERING
+   DYNAMIC CANVAS SPARKLINE GRAPHICS
 ═══════════════════════════════════════════ */
 function drawSparkline(canvasId, dataPoints) {
   const canvas = el(canvasId); if(!canvas) return;
   const ctx = canvas.getContext('2d');
-  
-  const dpr = window.devicePixelRatio || 1;
-  const logicalWidth = 165;
-  const logicalHeight = 20;
-  
-  canvas.style.width = logicalWidth + "px";
-  canvas.style.height = logicalHeight + "px";
-  canvas.width = logicalWidth * dpr;
-  canvas.height = logicalHeight * dpr;
-  ctx.scale(dpr, dpr);
-  
-  const W = logicalWidth;
-  const H = logicalHeight;
-  ctx.clearRect(0,0,W,H);
+  ctx.clearRect(0,0,canvas.width,canvas.height);
   if(dataPoints.length < 2) return;
 
   ctx.beginPath();
@@ -1518,15 +1434,63 @@ function drawSparkline(canvasId, dataPoints) {
   ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--cyan').trim();
   
   const max = Math.max(...dataPoints, 1);
-  const step = W / (dataPoints.length - 1);
+  const step = canvas.width / (dataPoints.length - 1);
   
   dataPoints.forEach((p, i) => {
     const x = i * step;
-    const y = H - ((p / max) * (H - 4)) - 2;
+    const y = canvas.height - ((p / max) * (canvas.height - 4)) - 2;
     if(i === 0) ctx.moveTo(x, y);
     else ctx.lineTo(x, y);
   });
   ctx.stroke();
+}
+
+/* ═══════════════════════════════════════════
+   ATTRACTIVE MINIMALIST ARC GAUGE
+═══════════════════════════════════════════ */
+function drawGauge(id, amps, cond, cfg){
+  const canvas = el(id); if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  ctx.clearRect(0,0,W,H);
+  
+  const color = CMETA[cond].color;
+  const unfillColor = document.body.classList.contains('dark-theme') ? '#1a2d55' : '#bcd0e5';
+  const labelColor = document.body.classList.contains('dark-theme') ? '#4a5a7a' : '#5d6d7e';
+
+  const cx = W/2, cy = H-8;
+  const r  = Math.min(W*0.44, H*0.82);
+  const ratio = Math.min(amps/cfg.gaugeMax, 1);
+
+  ctx.beginPath(); ctx.arc(cx,cy,r,Math.PI,2*Math.PI);
+  ctx.strokeStyle=unfillColor; ctx.lineWidth=11; ctx.lineCap='round'; ctx.stroke();
+
+  if(ratio>0){
+    ctx.beginPath(); ctx.arc(cx,cy,r,Math.PI,Math.PI+ratio*Math.PI);
+    ctx.strokeStyle=color; ctx.lineWidth=11; ctx.lineCap='round';
+    ctx.stroke();
+  }
+
+  const thR = Math.min(cfg.threshold/cfg.gaugeMax,1);
+  const thA = Math.PI+thR*Math.PI;
+  ctx.beginPath();
+  ctx.moveTo(cx+(r-15)*Math.cos(thA), cy+(r-15)*Math.sin(thA));
+  ctx.lineTo(cx+(r+4) *Math.cos(thA), cy+(r+4) *Math.sin(thA));
+  ctx.strokeStyle='#ff6d00'; ctx.lineWidth=2.5; ctx.stroke();
+
+  for(let i=0;i<=4;i++){
+    const a = Math.PI+(i/4)*Math.PI;
+    ctx.fillStyle=labelColor; ctx.font='8px Share Tech Mono';
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillText((i/4*cfg.gaugeMax).toFixed(0), cx+(r-22)*Math.cos(a), cy+(r-22)*Math.sin(a));
+  }
+
+  ctx.fillStyle=color; ctx.font='bold 22px Orbitron,monospace';
+  ctx.textAlign='center'; ctx.textBaseline='middle';
+  ctx.fillText(amps.toFixed(2), cx, cy-r*0.25);
+
+  ctx.fillStyle=labelColor; ctx.font='9px Share Tech Mono';
+  ctx.fillText('AMPS', cx, cy-r*0.25+18);
 }
 
 /* ═══════════════════════════════════════════
@@ -1571,6 +1535,216 @@ window.ackAlarm = function(R, idx){
 };
 
 /* ═══════════════════════════════════════════
+   STREAM CAPTURE ENGINE PIPELINE
+═══════════════════════════════════════════ */
+function updateMotorUI(R, M, amps, temp){
+  const rs  = state[R];
+  const mot = rs.motors[M];
+  const cfg = mot.cfg;
+  const cond = getCondition(amps, cfg.threshold);
+  const meta = CMETA[cond];
+  const now  = Date.now();
+
+  if(amps > mot.peakAmps) {
+    mot.peakAmps = amps;
+    el(`${R}_${M}_peak_amps`).textContent = `Pk: ${amps.toFixed(2)}A`;
+  }
+  
+  if(temp !== null && temp !== undefined && temp !== -127 && temp !== "-127" && (mot.peakTemp === -127 || temp > mot.peakTemp)) {
+    mot.peakTemp = temp;
+  }
+  el(`${R}_${M}_peak_temp`).textContent = `Pk: ` + (mot.peakTemp === -127 ? '--' : mot.peakTemp.toFixed(1) + '°C');
+
+  const tempEl = el(`${R}_${M}_temp`);
+  if (temp === -127 || temp === "-127") {
+    tempEl.style.color = 'var(--dim)';
+  } else {
+    tempEl.style.color = (temp > 65) ? 'var(--red)' : (temp > 45) ? 'var(--orange)' : 'var(--green)';
+  }
+
+  mot.historyBuffer.push(amps);
+  if(mot.historyBuffer.length > 30) mot.historyBuffer.shift();
+  drawSparkline(`spark_${R}_${M}`, mot.historyBuffer);
+
+  if(rs.online && mot.lastTs && amps > 0){
+    const dtSec  = (now - mot.lastTs) / 1000;
+    mot.runSec  += dtSec;
+    const powerKw = (Math.sqrt(3) * cfg.voltage * amps * cfg.pf) / 1000;
+    mot.dailyKwh += powerKw * (dtSec / 3600);
+  }
+  mot.lastTs = now;
+  mot.amps   = amps;
+
+  const nowAbove = (amps > cfg.threshold);
+  const curMin   = minuteOfDay();
+  const {date, time} = nowStr();
+
+  if(nowAbove){
+    if(!mot.inAlarm || curMin !== mot.lastAlarmMinute){
+      const fbKey = `${R}_${M}_${Date.now()}`;
+      const entry = { date, time, motor:mot.label, amps:amps.toFixed(2), cond:'ABNORMAL', acked:false, ackTime:'', ackDate:'', _fbKey:fbKey };
+      rs.alarmLog.unshift(entry);
+      if(rs.alarmLog.length > MAX_ALARM) rs.alarmLog.pop();
+      set(ref(DBS[R], `dashboard_alarms/${fbKey}`), { date, time, motor:mot.label, amps:amps.toFixed(2), cond:'ABNORMAL', acked:false }).catch(()=>{});
+      mot.inAlarm = true;
+      mot.lastAlarmMinute = curMin;
+      renderAlarmLog(R);
+    }
+  } else {
+    if(mot.inAlarm){
+      mot.inAlarm = false;
+      mot.lastAlarmMinute = -1;
+    }
+  }
+
+  if(cond !== mot.condition){
+    mot.condition = cond;
+  }
+
+  drawGauge(`gauge_${R}_${M}`, amps, cond, cfg);
+  el(`gsub_${R}_${M}`).textContent    = `MAX ${cfg.gaugeMax}A · THR ${cfg.threshold}A`;
+  el(`block_${R}_${M}`).className     = `motor-block ${meta.block}`;
+  el(`title_${R}_${M}`).className     = `motor-block-title ${meta.title}`;
+  
+  const pill = el(`pill_${R}_${M}`);
+  pill.textContent = meta.label;
+  pill.className   = `condition-pill ${meta.pill}`;
+  
+  el(`${R}_${M}_temp`).textContent    = fmtTemp(temp);
+  el(`${R}_${M}_runtime`).textContent = fmtRuntime(Math.floor(mot.runSec));
+  el(`${R}_${M}_energy`).textContent  = fmtKwh(mot.dailyKwh);
+}
+
+function setOnline(R, online){
+  if(state[R].online === online) return;
+  state[R].online = online;
+  
+  const dot = el(`conn_${R}`);
+  if(online) {
+    dot.className = 'conn-dot online';
+  } else {
+    dot.className = 'conn-dot offline';
+  }
+  updateReactorStatusBadge(R);
+}
+
+function updateReactorStatusBadge(R){
+  const badge = el(`${R}_status`);
+  const pending = Object.values(state[R].maintLog).filter(m => !m.endTime).length;
+  
+  if(!state[R].online){
+    badge.textContent = 'OFFLINE';
+    badge.className   = 'status-badge badge-offline';
+  } else if(pending > 0){
+    badge.textContent = `⚠️ ${pending} PENDING`;
+    badge.className   = 'status-badge badge-pending';
+  } else {
+    badge.textContent = 'ALL RUNNING';
+    badge.className   = 'status-badge badge-online';
+  }
+}
+
+setInterval(()=>{
+  REACTORS.forEach(R => setOnline(R, (Date.now()-state[R].hb) < OFFLINE_MS));
+}, 5000);
+
+/* ═══════════════════════════════════════════
+   HISTORICAL TIMELINE PARSING ARCHITECTURE
+═══════════════════════════════════════════ */
+function rebuildDailyFromHistory(R){
+  const today = new Date().toLocaleDateString('en-CA');
+  const motors = { M1:{ runSec:0, kwh:0 }, M2:{ runSec:0, kwh:0 } };
+  const rows = [...state[R].history]
+    .filter(r=> r.timestamp && r.timestamp.startsWith(today))
+    .sort((a,b)=> new Date(a.timestamp)-new Date(b.timestamp));
+
+  for(let i=1;i<rows.length;i++){
+    const prev = rows[i-1];
+    const curr = rows[i];
+    const dt = (new Date(curr.timestamp) - new Date(prev.timestamp))/1000;
+    
+    const a1 = Number(curr.ct1_amps||0);
+    if(a1>0.05){
+      motors.M1.runSec += dt;
+      const cfg = state[R].motors.M1.cfg;
+      const kw = (Math.sqrt(3) * cfg.voltage * a1 * cfg.pf) / 1000;
+      motors.M1.kwh += kw * dt / 3600;
+    }
+    const a2 = Number(curr.ct2_amps||0);
+    if(a2>0.05){
+      motors.M2.runSec += dt;
+      const cfg = state[R].motors.M2.cfg;
+      const kw = (Math.sqrt(3) * cfg.voltage * a2 * cfg.pf) / 1000;
+      motors.M2.kwh += kw * dt / 3600;
+    }
+  }
+
+  state[R].motors.M1.runSec = motors.M1.runSec;
+  state[R].motors.M1.dailyKwh = motors.M1.kwh;
+  state[R].motors.M2.runSec = motors.M2.runSec;
+  state[R].motors.M2.dailyKwh = motors.M2.kwh;
+
+  el(`${R}_M1_runtime`).textContent = fmtRuntime(Math.floor(motors.M1.runSec));
+  el(`${R}_M1_energy`).textContent  = fmtKwh(motors.M1.kwh);
+  el(`${R}_M2_runtime`).textContent = fmtRuntime(Math.floor(motors.M2.runSec));
+  el(`${R}_M2_energy`).textContent  = fmtKwh(motors.M2.kwh);
+}
+
+function buildLogsFromHistory(R){
+  const rs = state[R];
+  const ackedMap = new Map();
+  rs.alarmLog.forEach(entry => {
+    if(entry.acked) ackedMap.set(entry._fbKey, { acked: true, ackTime: entry.ackTime, ackDate: entry.ackDate });
+  });
+
+  rs.alarmLog = [];
+
+  [{ M:'M1', ctKey:'ct1_amps' },{ M:'M2', ctKey:'ct2_amps' }].forEach(({ M, ctKey })=>{
+    const mot = rs.motors[M];
+    let prevAbove=false, lastAlarmMin=-1;
+
+    [...rs.history]
+      .sort((a,b) => new Date(a.timestamp)-new Date(b.timestamp))
+      .forEach(row=>{
+        const amps = Number(row[ctKey]||0);
+        const date = row.date||'', time = row.time||'';
+        const nowAbove = (amps > mot.cfg.threshold);
+        let rowMin = -1;
+        try { const d=new Date(row.timestamp); rowMin=d.getHours()*60+d.getMinutes(); }catch(e){}
+
+        if(nowAbove){
+          if(!prevAbove || rowMin !== lastAlarmMin){
+            const fbKey = `hist_${R}_${M}_${row.timestamp||Date.now()}`;
+            const prevAck = ackedMap.get(fbKey);
+            rs.alarmLog.push({ 
+              date, time, motor:mot.label, amps:amps.toFixed(2), cond:'ABNORMAL', 
+              acked: prevAck ? true : false, 
+              ackTime: prevAck ? prevAck.ackTime : '', 
+              ackDate: prevAck ? prevAck.ackDate : '', 
+              _fbKey:fbKey 
+            });
+            lastAlarmMin = rowMin;
+          }
+        } else if(prevAbove){
+          lastAlarmMin = -1;
+        }
+        prevAbove=nowAbove;
+      });
+  });
+
+  const sortDesc = arr => arr.sort((a,b) => new Date(`${b.date} ${b.time}`) - new Date(`${a.date} ${a.time}`));
+  rs.alarmLog = sortDesc(rs.alarmLog).slice(0, MAX_ALARM);
+  renderLogs(R);
+
+  if (rs.history.length > 0 && !rs.lastDataTimestampFromServer) {
+    const sortedHist = [...rs.history].sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
+    if (sortedHist && sortedHist.timestamp) {
+      rs.lastDataTimestampFromServer = new Date(sortedHist.timestamp).getTime();
+    }
+  }
+}
+
+/* ═══════════════════════════════════════════
    MAINTENANCE CONTROL ACTIONS WITH MANPOWER
 ═══════════════════════════════════════════ */
 let _maintR = null, _activeClosingKey = null;
@@ -1590,7 +1764,7 @@ window.closeMaintModal = function(){ el('maint_modal').classList.remove('open');
 window.saveMaintenance = function(){
   if(!_maintR) return;
   const equip = el('inp_equip').value.trim();
-  const manpower = el('inp_manpower').value.trim(); 
+  const manpower = el('inp_manpower').value.trim(); // Reads manpower field value strings fallback
   const startVal = el('inp_start').value;
   const endVal = el('inp_end').value;
 
@@ -1601,7 +1775,7 @@ window.saveMaintenance = function(){
 
   const newLog = {
     equipment: equip,
-    manpower: manpower || '--', 
+    manpower: manpower || '--', // Explicit fallback layout
     startTime: startVal,
     endTime: endVal || null,
     timestamp: Date.now()
@@ -1612,6 +1786,7 @@ window.saveMaintenance = function(){
     .catch(err => alert('Error saving: ' + err.message));
 };
 
+// REQUIREMENT ENFORCED: Prompts structured datetime dropdown overlay modal to close task rather than raw browser stamps
 window.launchCompletionModalOverlay = function(R, fbKey) {
   _maintR = R;
   _activeClosingKey = fbKey;
@@ -1639,6 +1814,7 @@ window.submitCompletedJobTimestamp = function() {
     return;
   }
 
+  // Convert raw value straight into dynamic Firebase addresses
   update(ref(DBS[_maintR], `maintenance_logs/${_activeClosingKey}`), {
     endTime: closeTimeVal
   }).then(() => {
@@ -1683,6 +1859,7 @@ function renderMaintLog(R) {
       actionColumnMarkupHtml = `<span style="color:var(--green)">CLOSED</span>`;
     }
 
+    // REQUIREMENT ENFORCED: Appends manpower details column row fields straight to UI grid table matrix layout
     return `<tr class="row-maint">
       <td><b>${r.equipment}</b></td>
       <td style="color:var(--grey)">${r.manpower || '--'}</td>
@@ -1693,7 +1870,7 @@ function renderMaintLog(R) {
 }
 
 /* ═══════════════════════════════════════════
-   CSV EXPORT ROUTINES (TRUE DROPDOWN WINDOWS)
+   CSV EXPORT ROUTINES WITH MANPOWER MAPPINGS
 ═══════════════════════════════════════════ */
 window.downloadCSV = function(R, type){
   const rs = state[R];
@@ -1724,7 +1901,7 @@ window.downloadCSV = function(R, type){
   }
 
   if(type==='alarm'){
-    if(!rs.alarmLog.length){ alert(`No logged alarm records available.`); return; }
+    if(!rs.alarmLog.length){ alert(`No records.`); return; }
     csv = 'Date,Time,Motor,Current(A),Condition\n';
     rs.alarmLog.forEach(r=>{ csv += `${r.date},${r.time},${r.motor},${r.amps},${r.cond}\n`; });
     filename = `${R}_AlarmLog.csv`;
@@ -1733,6 +1910,7 @@ window.downloadCSV = function(R, type){
     const rawMaintArray = Object.values(rs.maintLog);
     if(!rawMaintArray.length){ alert(`No downtime maintenance data rows found.`); return; }
     
+    // REQUIREMENT ENFORCED: Inject Manpower details heading structures cleanly inside compiled raw csv strings
     csv = 'Equipment,Manpower_And_Job_Details,Start_Date_Time,End_Date_Time,Status\n';
     rawMaintArray.forEach(r=>{
       const sDate = new Date(r.startTime);
@@ -1823,7 +2001,6 @@ function attachListeners(R){
    SETTINGS WINDOW CONTROL ACTIONS
 ═══════════════════════════════════════════ */
 let _isLocked = true;
-let _eR=null, _eM=null;
 
 window.toggleSettingsLock = function() {
   _isLocked = !_isLocked;
